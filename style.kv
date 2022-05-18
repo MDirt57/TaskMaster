@@ -25,6 +25,7 @@
 				size_hint: None, None
 				width: root.width/5
 				height: root.height/10
+				on_press: app.root.current = 'timer'
 		
 			Label:
 				text: 'TaskMaster'
@@ -42,6 +43,45 @@
 				height: root.height/10
 				on_press: root.edit()
 				
+<Timer>:
+	FloatLayout:
+		id: timer
+		size: root.width, root.height
+
+		Label:
+			id: stopwatch
+			text: '00:00'
+			font_size: 36
+			pos_hint: {'y': -0.28}			
 			
+		Button:
+			id: fail
+			text: 'Fail'
+			font_size: 24
+			size_hint: None, None
+			width: root.width/4
+			height: root.height/10
+			pos_hint: {'x': 0.1, 'y': 0.15}
+			on_press: root.pause()
+		
+		Button:
+			id: success
+			text: 'Success'
+			font_size: 24
+			size_hint: None, None
+			width: root.width/4
+			height: root.height/10
+			pos_hint: {'x': 0.65, 'y': 0.15}
+			on_press: root.start()
+
+		Button:
+			id: pause
+			text: 'Pause'
+			font_size: 24
+			size_hint: None, None
+			width: root.width/4
+			height: root.height/10
+			pos_hint: {'x': 0.375, 'y': 0.015}
+			on_press: app.root.current = 'menu'
 
 			
