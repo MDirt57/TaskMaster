@@ -43,16 +43,23 @@
 				height: root.height/10
 				on_press: root.edit()
 				
+				
 <Timer>:
 	FloatLayout:
 		id: timer
 		size: root.width, root.height
 
 		Label:
+			id: task_name
+			text: 'sd'
+			font_size: 24
+			pos_hint: {'y': 0.3}
+			
+		Label:
 			id: stopwatch
-			text: '00:00'
-			font_size: 36
-			pos_hint: {'y': -0.28}			
+			text: '00:00:00'
+			font_size: 48
+			pos_hint: {'y': 0.1}			
 			
 		Button:
 			id: fail
@@ -62,7 +69,7 @@
 			width: root.width/4
 			height: root.height/10
 			pos_hint: {'x': 0.1, 'y': 0.15}
-			on_press: root.stop()
+			on_press: root.pause()
 		
 		Button:
 			id: success
