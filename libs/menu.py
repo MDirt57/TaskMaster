@@ -6,7 +6,6 @@ from kivy.uix.label import Label
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from task_button import TaskButton
-from ready import Ready
 
 class Menu(Screen):
 
@@ -16,10 +15,6 @@ class Menu(Screen):
         self.add_btn = Button(text = '+', font_size = 36, size_hint_y = None, height = self.height/2)
         self.add_btn.bind(on_press = self.add_task)
         self.edit_marker = 0
-        self.ready_screen = Ready()
-        self.ready_screen.size_hint = (.5, .5)
-        self.ready_screen.pos_hint = {'x': .25, 'y': .25}
-        self.ready_screen.no.bind(on_press = self.no)
 
     def edit(self):
         if self.edit_marker == 0:
@@ -55,13 +50,8 @@ class Menu(Screen):
         self.ids.task_list.remove_widget(i)
         del self.tasks[self.tasks.index(i)]
 
-    def get_start(self, instance):
-        self.add_widget(self.ready_screen)
-
-    def no(self, instance):
-        self.remove_widget(self.ready_screen)
-        
-
+    def get_start(self,instance):
+        pass
 
 kv = Builder.load_file('kv/menu.kv')
 
