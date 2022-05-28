@@ -1,7 +1,5 @@
-<Menu>:
-	name: 'menu'
-	task_list: task_list
-	
+<Menu, History>:
+
 	FloatLayout:
 		id: menu
 		size: root.width, root.height
@@ -19,13 +17,13 @@
 			cols: 3
 			
 			Button:
-				id: settings
+				id: other
 				text: 'O'
 				font_size: 36
 				size_hint: None, None
 				width: root.width/5
 				height: root.height/10
-				on_press: app.root.current = 'timer'
+				on_press: app.root.other_button
 		
 			Label:
 				text: 'TaskMaster'

@@ -5,7 +5,7 @@
 
 		Label:
 			id: task_name
-			text: 'sd'
+			text: ''
 			font_size: 24
 			pos_hint: {'y': 0.3}
 			
@@ -45,3 +45,13 @@
 			height: root.height/10
 			pos_hint: {'x': 0.375, 'y': 0.015}
 			on_press: root.start_pause()
+			
+		Button:
+			id: back
+			text: '<-'
+			font_size: 18
+			size_hint: None, None
+			width: root.width/8
+			height: root.height/12
+			pos_hint: {'x': 0.165, 'y': 0.02}
+			on_press: root.back()

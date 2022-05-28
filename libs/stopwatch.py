@@ -11,12 +11,13 @@ class Stopwatch(Screen):
         super(Stopwatch, self).__init__(**kwargs)
         self.mstopwatch = 0
         self.iscounting = False
+        self.current_task = None
+        Clock.schedule_interval(self.second_counter, 1)
 
     def start_pause(self):
         if not self.iscounting:
             self.ids.start_pause.text = 'Pause'
             self.iscounting = True
-            Clock.schedule_interval(self.second_counter, 1)
         else:
             self.ids.start_pause.text = 'Start'
             self.iscounting = False
@@ -38,18 +39,33 @@ class Stopwatch(Screen):
             self.mstopwatch += 1
             self.ids.stopwatch.text = self.time_format(self.mstopwatch)
 
+    def set_start(self):
+        self.ids.start_pause.text = 'Start'
+        self.iscounting = False
+        self.mstopwatch = 0
+        self.ids.stopwatch.text = '00:00:00'
+        
+
     def res(self, result):
         today = date.today()
-        with open(f'{today}.txt', 'a') as f:
+        with open(f'libs/history/{today}.txt', 'a') as f:
             f.write(f'{self.ids.task_name.text}: {self.ids.stopwatch.text} | {result}!\n')
             f.close()
+        self.set_start()
+        self.res_2(result)
+
+    def res_2(self, result):
+        pass
+
+    def back(self):
+        pass
 
 
-Builder.load_file('kv/stopwatch.kv')
+Builder.load_file('libs/kv/stopwatch.kv')
 
-class MyApp(App):
-    def build(self):
-        return Stopwatch()
-
-if __name__ == '__main__':
-    MyApp().run()
+##class MyApp(App):
+##    def build(self):
+##        return Stopwatch()
+##
+##if __name__ == '__main__':
+##    MyApp().run()

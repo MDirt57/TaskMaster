@@ -1,6 +1,5 @@
 import kivy
 from kivy.app import App
-from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.floatlayout import FloatLayout
@@ -21,10 +20,14 @@ class TaskButton(FloatLayout, Button):
                               pos_hint = {'top': .8, 'x': .2})
         self.input.bind(on_text_validate = self.set_name)
         self.add_widget(self.input)
-        self.background_down = self.background_normal
 
     def set_name(self, instance):
         self.name.text = self.input.text
+        self.add_widget(self.name)
+        self.remove_widget(self.input)
+
+    def set_name_(self, name):
+        self.name.text = name
         self.add_widget(self.name)
         self.remove_widget(self.input)
 
