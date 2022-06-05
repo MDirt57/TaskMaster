@@ -3,6 +3,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 import os
+import glob
 
 import sys
 sys.path.insert(0, 'libs/components/')
@@ -16,6 +17,7 @@ class History(Screen):
         self.tasks = []
         self.edit_marker = 0
         self.results = []
+        self.files = glob.glob(glob.escape(self.directory) + '/*.txt')
         self.load()
 
     def edit(self):
@@ -31,18 +33,18 @@ class History(Screen):
             self.edit_marker = 0
     
     def load(self):
-        for filename in os.listdir(self.directory):
+        for filename in self.files:
             task = HistoryButton()
             task.size_hint_y = None
             task.height = self.height/2
-            task.name.text = filename
+            task.name.text = filename[13:]
+            task.path = filename
             task.delete.bind(on_press = lambda i: self.delete_task(task))
             task.bind(on_press = lambda j: self.show(filename))
             self.ids.task_list.add_widget(task)
             self.tasks.append(task)
 
-    def show(self, filename):
-        file = os.path.join(self.directory, filename)
+    def show(self, file):
         with open(file, 'r') as f:
             lines = f.read().splitlines()
             for task in lines:
@@ -56,10 +58,9 @@ class History(Screen):
     def delete_task(self, i):
         self.ids.task_list.remove_widget(i)
         del self.tasks[self.tasks.index(i)]
-        file = os.path.join(self.directory, i.name.text)
-        os.remove(file)
+        os.remove(i.path)
 
-        
+
 
 kv = Builder.load_file('libs/kv/main.kv')
 
