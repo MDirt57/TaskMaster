@@ -4,6 +4,7 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivy.clock import Clock
 from datetime import date
+import threading
 
 class Stopwatch(Screen):
 
@@ -12,7 +13,8 @@ class Stopwatch(Screen):
         self.mstopwatch = 0
         self.iscounting = False
         self.current_task = None
-        Clock.schedule_interval(self.second_counter, 1)
+        self.t = threading.Thread(target = Clock.schedule_interval\
+                     (self.second_counter, 1)).start()
 
     def start_pause(self):
         if not self.iscounting:

@@ -17,7 +17,7 @@ class Menu(Screen):
         self.add_btn = Button(text = '+', font_size = 36, size_hint_y = None, height = self.height/2)
         self.add_btn.bind(on_press = self.add_task)
         self.edit_marker = 0
-##        self.load()
+        self.load()
 
     def edit(self):
         if self.edit_marker == 0:
@@ -48,11 +48,11 @@ class Menu(Screen):
         task.bind(on_press = lambda j: self.start_task(task))
         self.ids.task_list.add_widget(task)        
 
-##    def load(self):
-##        with open('cash.txt', 'r') as f:
-##            lines = f.read().splitlines()
-##        for line in lines:
-##            self.create_task(line, 1.75)
+    def load(self):
+        with open('libs/cash.txt', 'r') as f:
+            lines = f.read().splitlines()
+        for line in lines:
+            self.create_task(line, 1.75)
             
     def add_task(self, instance):
         self.ids.task_list.remove_widget(self.add_btn)
@@ -62,6 +62,12 @@ class Menu(Screen):
     def delete_task(self, i):
         self.ids.task_list.remove_widget(i)
         del self.tasks[self.tasks.index(i)]
+        self.update()
+
+    def update(self):
+        with open('libs/cash.txt', 'w') as f:
+            for task in self.tasks:
+                f.write(f'{task.name.text}\n')
 
     def start_task(self, name):
         pass

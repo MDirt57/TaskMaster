@@ -40,6 +40,7 @@ class WindowManager(ScreenManager):
 
     def stopwatch_back(self):
         self.current = 'menu'
+        self.stopwatch.set_start()
 
     def stopwatch_res_2(self, result):
         if result == 'Success':
@@ -57,6 +58,7 @@ class WindowManager(ScreenManager):
     def other_button(self):
         if self.current == 'menu':
             self.current = 'history'
+            self.history.load()
         else:
             self.current = 'menu'
                 
@@ -68,6 +70,9 @@ wm.current = 'menu'
 class TaskMaster(App):
     def build(self):
         return wm
+
+    def on_stop(self):
+        wm.menu.update()
 
 if __name__ == '__main__':
     TaskMaster().run()

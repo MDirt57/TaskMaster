@@ -17,8 +17,7 @@ class History(Screen):
         self.tasks = []
         self.edit_marker = 0
         self.results = []
-        self.files = glob.glob(glob.escape(self.directory) + '/*.txt')
-        self.load()
+        self.files_ = []
 
     def edit(self):
         if self.edit_marker == 0:
@@ -32,17 +31,22 @@ class History(Screen):
                     i.close_edit()
             self.edit_marker = 0
     
-    def load(self):
-        for filename in self.files:
+    def load_(self, filename):
+        if filename not in self.files_:
+            self.files_.append(filename)
             task = HistoryButton()
             task.size_hint_y = None
-            task.height = self.height/2
+            task.height = 50
             task.name.text = filename[13:]
             task.path = filename
             task.delete.bind(on_press = lambda i: self.delete_task(task))
             task.bind(on_press = lambda j: self.show(filename))
             self.ids.task_list.add_widget(task)
             self.tasks.append(task)
+
+    def load(self):
+        for filename in glob.glob(glob.escape(self.directory) + '/*.txt'):
+            self.load_(filename)
 
     def show(self, file):
         with open(file, 'r') as f:
