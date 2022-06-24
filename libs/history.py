@@ -37,7 +37,7 @@ class History(Screen):
             task = HistoryButton()
             task.size_hint_y = None
             task.height = 50
-            task.name.text = filename[13:]
+            task.name.text = filename[13:-4]
             task.path = filename
             task.delete.bind(on_press = lambda i: self.delete_task(task))
             task.bind(on_press = lambda j: self.show(filename))
@@ -61,6 +61,7 @@ class History(Screen):
 
     def delete_task(self, i):
         self.ids.task_list.remove_widget(i)
+        self.files_.remove(i.path)
         del self.tasks[self.tasks.index(i)]
         os.remove(i.path)
 

@@ -37,12 +37,12 @@ class Menu(Screen):
                         pass
             self.edit_marker = 0
 
-    def create_task(self, name = '', size = 10):
+    def create_task(self, name = ''):
         task = TaskButton()
         if name != '':
             task.set_name_(name)
         task.size_hint_y = None
-        task.height = self.height/size
+        task.height = 60
         self.tasks.append(task)
         task.delete.bind(on_press = lambda i: self.delete_task(task))
         task.bind(on_press = lambda j: self.start_task(task))
@@ -52,7 +52,7 @@ class Menu(Screen):
         with open('libs/cash.txt', 'r') as f:
             lines = f.read().splitlines()
         for line in lines:
-            self.create_task(line, 1.75)
+            self.create_task(line)
             
     def add_task(self, instance):
         self.ids.task_list.remove_widget(self.add_btn)
