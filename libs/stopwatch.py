@@ -4,6 +4,7 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivy.clock import Clock
 from datetime import date
+from time import time
 
 class Stopwatch(Screen):
 
@@ -12,6 +13,7 @@ class Stopwatch(Screen):
         self.mstopwatch = 0
         self.iscounting = False
         self.current_task = None
+        self.time_in_handling = 0
         Clock.schedule_interval(self.second_counter, 1)
 
     def start_pause(self):
@@ -28,14 +30,17 @@ class Stopwatch(Screen):
         return str(sec)
 
     def time_format(self, sec):
-        if sec > 60 and sec < 3600:
+        if sec >= 60 and sec < 3600:
             return f"00:{self.zeros_format(sec // 60)}:{self.zeros_format(sec % 60)}"
-        elif sec > 3600:
+        elif sec >= 3600:
             return f"{self.zeros_format(sec // 3600)}:{self.zeros_format(sec % 3600 // 60)}:{self.zeros_format(sec % 60)}"
         return f"00:00:{self.zeros_format(sec % 60)}"
 
     def second_counter(self, dt):
         if self.iscounting:
+            if self.time_in_handling != 0:
+                self.mstopwatch += round(time() - self.time_in_handling)
+                self.time_in_handling = 0
             self.mstopwatch += 1
             self.ids.stopwatch.text = self.time_format(self.mstopwatch)
 

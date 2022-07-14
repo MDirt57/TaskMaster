@@ -5,7 +5,7 @@ from libs import open_task
 import kivy
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager
-
+from time import time
 
 class WindowManager(ScreenManager):
 
@@ -73,6 +73,10 @@ class TaskMaster(App):
 
     def on_stop(self):
         wm.menu.update()
+
+    def on_pause(self):
+        wm.stopwatch.time_in_handling = time()
+        return True
 
 if __name__ == '__main__':
     TaskMaster().run()
