@@ -43,6 +43,8 @@ class Stopwatch(Screen):
                 self.time_in_handling = 0
             self.mstopwatch += 1
             self.ids.stopwatch.text = self.time_format(self.mstopwatch)
+        else:
+            self.time_in_handling = 0
 
     def set_start(self):
         self.ids.start_pause.text = 'Start'
