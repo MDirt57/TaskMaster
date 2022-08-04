@@ -1,12 +1,12 @@
 import kivy
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen
+from kivymd.uix.screen import MDScreen
 from kivy.clock import Clock
 from datetime import date
 from time import time
 
-class Stopwatch(Screen):
+class Stopwatch(MDScreen):
 
     def __init__(self, **kwargs):
         super(Stopwatch, self).__init__(**kwargs)
@@ -64,8 +64,6 @@ class Stopwatch(Screen):
     def res_2(self, result):
         pass
 
-    def back(self):
-        pass
 
 
 Builder.load_file('libs/kv/stopwatch.kv')

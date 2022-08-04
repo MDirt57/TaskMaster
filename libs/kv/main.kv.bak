@@ -16,14 +16,13 @@
 		GridLayout:
 			cols: 3
 			
-			Button:
+			MDIconButton:
 				id: other
-				text: 'O'
 				font_size: 36
 				size_hint: None, None
 				width: root.width/5
 				height: root.height/10
-				on_press: app.root.other_button
+				on_press: app.root.other_button()
 		
 			Label:
 				text: 'TaskMaster'

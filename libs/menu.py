@@ -1,36 +1,41 @@
 import kivy
-from kivy.app import App
-from kivy.uix.button import Button
+from kivymd.app import MDApp
+from kivymd.uix.button import MDRectangleFlatButton
 from kivy.uix.label import Label
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen
+from kivymd.uix.screen import MDScreen
 
 import sys
 sys.path.insert(0, 'libs/components/')
 from task_button import TaskButton
 
-class Menu(Screen):
+class Menu(MDScreen):
 
     def __init__(self, **kwargs):
         super(Menu, self).__init__(**kwargs)
         self.tasks = []
-        self.add_btn = Button(text = '+', font_size = 36, size_hint_y = None, height = self.height/2)
+        self.add_btn = MDRectangleFlatButton(text = '+', font_size = 36, md_bg_color = (0, 0, 0, 1))
         self.add_btn.bind(on_press = self.add_task)
         self.edit_marker = 0
+        self.kv = Builder.load_file('libs/kv/main.kv')
         self.load()
 
     def edit(self):
         if self.edit_marker == 0:
-            self.ids.task_list.add_widget(self.add_btn)
+            self.ids.edit.icon = 'window-close'
+            self.ids.menu.add_widget(self.add_btn)
             if self.tasks != []:
                 for i in self.tasks:
                     i.edit()
             self.edit_marker = 1
         else:
-            self.ids.task_list.remove_widget(self.add_btn)
+            self.ids.edit.icon = 'plus'
+            self.ids.menu.remove_widget(self.add_btn)
             if self.tasks != []:
                 for i in self.tasks:
                     i.close_edit()
+                    if i.is_edit():
+                        i.set_name_(i.input.text)
                     try:
                         i.remove_widget(i.input)
                     except:
@@ -55,9 +60,9 @@ class Menu(Screen):
             self.create_task(line)
             
     def add_task(self, instance):
-        self.ids.task_list.remove_widget(self.add_btn)
+        # self.ids.task_list.remove_widget(self.add_btn)
         self.create_task()
-        self.ids.task_list.add_widget(self.add_btn)
+        # self.ids.task_list.add_widget(self.add_btn)
 
     def delete_task(self, i):
         self.ids.task_list.remove_widget(i)
@@ -74,9 +79,9 @@ class Menu(Screen):
 
 kv = Builder.load_file('libs/kv/main.kv')
 
-##class TaskMaster(App):
-##    def build(self):
-##        return Menu()
-##
-##if __name__ == '__main__':
-##    TaskMaster().run()
+# class TaskMaster(MDApp):
+#     def build(self):
+#         return Menu()
+
+# if __name__ == '__main__':
+#     TaskMaster().run()

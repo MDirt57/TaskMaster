@@ -3,10 +3,13 @@
 		id: timer
 		size: root.width, root.height
 
-		Label:
+		MDLabel:
 			id: task_name
 			text: ''
-			font_size: 24
+			theme_text_color: 'Custom'
+			text_color: (164/255, 1, 0, 0.8)
+			font_size: 36
+			halign: 'center'
 			pos_hint: {'y': 0.3}
 			
 		Label:
@@ -15,20 +18,24 @@
 			font_size: 48
 			pos_hint: {'y': 0.1}			
 			
-		Button:
+		MDIconButton:
 			id: fail
-			text: 'Fail'
-			font_size: 24
+			icon: 'window-close'
+			icon_size: '54sp'
+			theme_icon_color: 'Custom'
+			icon_color: (1, 0, 0, 1)
 			size_hint: None, None
 			width: root.width/4
 			height: root.height/10
 			pos_hint: {'x': 0.1, 'y': 0.15}
 			on_press: root.res(self.text)
 		
-		Button:
+		MDIconButton:
 			id: success
-			text: 'Success'
-			font_size: 24
+			icon: 'check'
+			icon_size: '54sp'
+			theme_icon_color: 'Custom'
+			icon_color: (0, 1, 0, 1)
 			size_hint: None, None
 			width: root.width/4
 			height: root.height/10
@@ -36,22 +43,10 @@
 			on_press: root.res(self.text)
 			
 
-		Button:
+		MDRoundFlatButton:
 			id: start_pause
 			text: 'Start'
 			font_size: 24
-			size_hint: None, None
-			width: root.width/4
-			height: root.height/10
+			size_hint: .25, .1
 			pos_hint: {'x': 0.375, 'y': 0.015}
 			on_press: root.start_pause()
-			
-		Button:
-			id: back
-			text: '<-'
-			font_size: 18
-			size_hint: None, None
-			width: root.width/8
-			height: root.height/12
-			pos_hint: {'x': 0.165, 'y': 0.02}
-			on_press: root.back()

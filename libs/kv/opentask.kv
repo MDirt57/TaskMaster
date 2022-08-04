@@ -3,11 +3,12 @@
 		id: list
 		size: root.width, root.height
 		
-		DropDown:
-			id: task_list
-			size_hint: None, None
-			width: root.width
-			height: root.height
-			pos_hint: {'top': 1}
-			open: list
-			auto_dismiss: False
+		ScrollView:
+			on_scroll_x: False
+			on_scroll_y: True
+
+			GridLayout:
+				id: task_list
+				cols: 1
+				size_hint: 1, None
+				height: self.minimum_height + 50

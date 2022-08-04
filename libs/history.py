@@ -1,7 +1,7 @@
 import kivy
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen
+from kivymd.uix.screen import MDScreen
 import os
 import glob
 
@@ -9,7 +9,7 @@ import sys
 sys.path.insert(0, 'libs/components/')
 from history_button import HistoryButton
 
-class History(Screen):
+class History(MDScreen):
 
     def __init__(self, **kwargs):
         super(History, self).__init__(**kwargs)
@@ -21,11 +21,13 @@ class History(Screen):
 
     def edit(self):
         if self.edit_marker == 0:
+            self.ids.edit.icon = 'delete-off-outline'
             if self.tasks != []:
                 for i in self.tasks:
                     i.edit()
             self.edit_marker = 1
         else:
+            self.ids.edit.icon = 'delete-outline'
             if self.tasks != []:
                 for i in self.tasks:
                     i.close_edit()
@@ -67,7 +69,7 @@ class History(Screen):
 
 
 
-kv = Builder.load_file('libs/kv/main.kv')
+# kv = Builder.load_file('libs/kv/main.kv')
 
 ##class MyApp(App):
 ##    def build(self):

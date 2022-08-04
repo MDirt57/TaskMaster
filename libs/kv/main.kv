@@ -4,22 +4,25 @@
 		id: menu
 		size: root.width, root.height
 		
-		DropDown:
-			id: task_list
-			size_hint: None, None
-			width: root.width
-			height: 9*root.height/10
+		ScrollView:
 			pos_hint: {'top': .9}
-			open: menu
-			auto_dismiss: False
+			do_scroll_x: False
+			do_scroll_y: True
+
+			GridLayout:
+				id: task_list
+				cols: 1
+				size_hint: 1, None
+				height: self.minimum_height + 60
+				
 			
 		GridLayout:
 			cols: 3
-			
-			Button:
+
+			MDIconButton:
 				id: other
-				text: 'O'
-				font_size: 36
+				icon_size: '54sp'
+				md_bg_color: (18/255, 18/255, 18/255, 1)
 				size_hint: None, None
 				width: root.width/5
 				height: root.height/10
@@ -32,10 +35,10 @@
 				width: 3*root.width/5
 				height: root.height/10
 	
-			Button:
+			MDIconButton:
 				id: edit
-				text: '+'
-				font_size: 36
+				icon_size: '54sp'
+				md_bg_color: (18/255, 18/255, 18/255, 1)
 				size_hint: None, None
 				width: root.width/5
 				height: root.height/10
