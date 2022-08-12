@@ -8,18 +8,19 @@
 			text: ''
 			theme_text_color: 'Custom'
 			text_color: (164/255, 1, 0, 0.8)
-			font_size: 36
+			font_size: 64
 			halign: 'center'
 			pos_hint: {'y': 0.3}
 			
 		Label:
 			id: stopwatch
 			text: '00:00:00'
-			font_size: 48
+			font_size: 128
 			pos_hint: {'y': 0.1}			
 			
 		MDIconButton:
 			id: fail
+			name: 'Fail'
 			icon: 'window-close'
 			icon_size: '54sp'
 			theme_icon_color: 'Custom'
@@ -28,10 +29,11 @@
 			width: root.width/4
 			height: root.height/10
 			pos_hint: {'x': 0.1, 'y': 0.15}
-			on_press: root.res(self.text)
+			on_press: root.res(self.name)
 		
 		MDIconButton:
 			id: success
+			name: 'Success'
 			icon: 'check'
 			icon_size: '54sp'
 			theme_icon_color: 'Custom'
@@ -40,7 +42,7 @@
 			width: root.width/4
 			height: root.height/10
 			pos_hint: {'x': 0.65, 'y': 0.15}
-			on_press: root.res(self.text)
+			on_press: root.res(self.name)
 			
 
 		MDRoundFlatButton:

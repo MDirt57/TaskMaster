@@ -11,7 +11,7 @@ class HistoryButton(FloatLayout, MDRectangleFlatButton):
         super(HistoryButton, self).__init__(**kwargs)
         self.delete = MDIconButton(icon = 'delete', font_size = 36, size_hint = (.1, 1),\
                              pos_hint = {'x': .9, 'y': 0})
-        self.name = Label(font_size = 36, pos_hint = {'x': 0, 'y': 0})
+        self.name = Label(font_size = 48, pos_hint = {'x': 0, 'y': 0})
         self.size_hint_x = 1
         self.add_widget(self.name)
         self.path = None

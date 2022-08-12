@@ -17,9 +17,9 @@ class TaskButton(FloatLayout, MDRectangleFlatButton):
         self.change_name = MDIconButton(icon = 'square-edit-outline', font_size = 36, size_hint = (.1, 1),\
                              pos_hint = {'x': .8, 'y': 0})
         self.change_name.bind(on_press = self.change_name_)
-        self.name = Label(font_size = 36, pos_hint = {'x': 0, 'y': 0})
+        self.name = Label(font_size = 48, pos_hint = {'x': 0, 'y': 0})
         self.input = MDTextField(multiline = False, mode = 'rectangle', size_hint = (.6, .5),\
-                              pos_hint = {'top': 1, 'x': .2})
+                              pos_hint = {'top': .8, 'x': .2})
         self.size_hint_x = 1
         self.input.bind(on_text_validate = self.set_name)
         self.add_widget(self.input)
@@ -47,7 +47,7 @@ class TaskButton(FloatLayout, MDRectangleFlatButton):
             self.remove_widget(self.name)
             self.add_widget(self.input)
             self.input.text = self.name.text
-            self.input.pos_hint = {'top': 1, 'x': .1}
+            self.input.pos_hint = {'top': .8, 'x': .1}
             self.rename = True
 
     def close_edit(self):

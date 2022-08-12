@@ -38,7 +38,7 @@ class History(MDScreen):
             self.files_.append(filename)
             task = HistoryButton()
             task.size_hint_y = None
-            task.height = 50
+            task.height = 100
             task.name.text = filename[13:-4]
             task.path = filename
             task.delete.bind(on_press = lambda i: self.delete_task(task))
