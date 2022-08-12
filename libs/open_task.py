@@ -13,7 +13,7 @@ class OpenTask(MDScreen):
 
     def show(self):
         for task in self.tasks:
-            t = Label(text = task, font_size = 24, size_hint_y = None, height = 25)
+            t = Label(text = task, font_size = 48, size_hint_y = None, height = 50)
             if 'Success' in task:
                 t.color = (0,1,0,1)
             else:

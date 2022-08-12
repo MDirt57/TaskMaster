@@ -14,7 +14,7 @@ class Menu(MDScreen):
     def __init__(self, **kwargs):
         super(Menu, self).__init__(**kwargs)
         self.tasks = []
-        self.add_btn = MDRectangleFlatButton(text = '+', font_size = 48, md_bg_color = (0, 0, 0, 1), size_hint = (.2, .2))
+        self.add_btn = MDRectangleFlatButton(text = '+', font_size = 48, md_bg_color = (0, 0, 0, 1), size_hint = (.2, .1))
         self.add_btn.bind(on_press = self.add_task)
         self.edit_marker = 0
         self.kv = Builder.load_file('libs/kv/main.kv')
@@ -47,7 +47,6 @@ class Menu(MDScreen):
         if name != '':
             task.set_name_(name)
         task.size_hint_y = None
-        task.height = 100
         self.tasks.append(task)
         task.delete.bind(on_press = lambda i: self.delete_task(task))
         task.bind(on_press = lambda j: self.start_task(task))
