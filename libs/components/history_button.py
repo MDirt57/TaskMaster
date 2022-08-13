@@ -24,14 +24,14 @@ class HistoryButton(FloatLayout, MDRectangleFlatButton):
 
     def close_edit(self):
         self.remove_widget(self.delete)
-        self.name.font_size = 36
+        self.name.font_size = 48
         self.name.pos_hint = {'x': 0, 'y': 0}
 
 
 
-class MyApp(App):
-    def build(self):
-        return HistoryButton()
+# class MyApp(App):
+#     def build(self):
+#         return HistoryButton()
 
-if __name__ == '__main__':
-    MyApp().run()
+# if __name__ == '__main__':
+#     MyApp().run()

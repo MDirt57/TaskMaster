@@ -2,7 +2,7 @@ import kivy
 from kivy.app import App
 from kivymd.uix.button import MDRectangleFlatButton, MDIconButton
 from kivy.uix.textinput import TextInput
-from kivymd.uix.textfield import MDTextField
+from kivymd.uix.textfield import MDTextFieldRect
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 
@@ -19,8 +19,9 @@ class TaskButton(FloatLayout, MDRectangleFlatButton):
                              pos_hint = {'x': .8, 'y': 0})
         self.change_name.bind(on_press = self.change_name_)
         self.name = Label(font_size = 48, pos_hint = {'x': 0, 'y': 0})
-        self.input = MDTextField(multiline = False, font_size = 36, mode = 'rectangle', size_hint = (.6, 1),\
-                                pos_hint = {'y': 0, 'x': .2})
+        self.input = MDTextFieldRect(multiline = False, font_size = 36, size_hint = (.6, .6),\
+                                background_color = (1, 1, 1, 1), foreground_color = (33/255, 150/255, 243/255, 1), \
+                                pos_hint = {'top': .8, 'x': .2})
         self.size_hint_x = 1
         self.input.bind(on_text_validate = self.set_name)
         self.add_widget(self.input)
@@ -54,7 +55,7 @@ class TaskButton(FloatLayout, MDRectangleFlatButton):
     def close_edit(self):
         self.remove_widget(self.delete)
         self.remove_widget(self.change_name)
-        self.name.font_size = 36
+        self.name.font_size = 48
         self.name.pos_hint = {'x': 0, 'y': 0}
 
     def is_edit(self):
