@@ -8,14 +8,14 @@
 			text: ''
 			theme_text_color: 'Custom'
 			text_color: (164/255, 1, 0, 0.8)
-			font_size: 64
+			font_size: root.width*.06
 			halign: 'center'
 			pos_hint: {'y': 0.3}
 			
 		Label:
 			id: stopwatch
 			text: '00:00:00'
-			font_size: 128
+			font_size: root.width*.128
 			pos_hint: {'y': 0.1}			
 			
 		MDIconButton:
@@ -48,7 +48,7 @@
 		MDRoundFlatButton:
 			id: start_pause
 			text: 'Start'
-			font_size: 24
+			font_size: root.width*.05
 			size_hint: .25, .1
 			pos_hint: {'x': 0.375, 'y': 0.015}
 			on_press: root.start_pause()

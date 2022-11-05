@@ -1,19 +1,19 @@
-import kivy
-from kivy.app import App
-from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
 import os
 import glob
 
 import sys
+
 sys.path.insert(0, 'libs/components/')
 from history_button import HistoryButton
+sys.path.append('TaskMaster/res')
+
 
 class History(MDScreen):
 
     def __init__(self, **kwargs):
         super(History, self).__init__(**kwargs)
-        self.directory = 'libs/history'
+        self.directory = 'res/history'
         self.tasks = []
         self.edit_marker = 0
         self.results = []
@@ -32,16 +32,16 @@ class History(MDScreen):
                 for i in self.tasks:
                     i.close_edit()
             self.edit_marker = 0
-    
+
     def load_(self, filename):
         if filename not in self.files_:
             self.files_.append(filename)
             task = HistoryButton()
             task.size_hint_y = None
-            task.name.text = filename[13:-4]
+            task.name.text = filename[12:-4]
             task.path = filename
-            task.delete.bind(on_press = lambda i: self.delete_task(task))
-            task.bind(on_press = lambda j: self.show(filename))
+            task.delete.bind(on_press=lambda i: self.delete_task(task))
+            task.bind(on_press=lambda j: self.show(filename))
             self.ids.task_list.add_widget(task)
             self.tasks.append(task)
 
@@ -66,7 +66,8 @@ class History(MDScreen):
         del self.tasks[self.tasks.index(i)]
         os.remove(i.path)
 
-
+    def add_group(self):
+        pass
 
 # kv = Builder.load_file('libs/kv/main.kv')
 

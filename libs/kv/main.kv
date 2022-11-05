@@ -26,11 +26,14 @@
 				size_hint: None, None
 				width: root.width/5
 				height: root.height/10
-				on_press: app.root.other_button()
-		
-			Label:
-				text: 'TaskMaster'
-				font_size: 48
+				on_press: root.add_group()
+
+
+			MDLabel:
+			    id: group
+				text: 'Main'
+				halign: 'center'
+				font_size: root.width*.06
 				size_hint: None, None
 				width: 3*root.width/5
 				height: root.height/10

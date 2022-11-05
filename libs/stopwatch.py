@@ -1,10 +1,13 @@
-import kivy
-from kivy.app import App
 from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
 from kivy.clock import Clock
 from datetime import date
 from time import time
+
+import sys
+
+sys.path.append('TaskMaster/res')
+
 
 class Stopwatch(MDScreen):
 
@@ -46,24 +49,30 @@ class Stopwatch(MDScreen):
         else:
             self.time_in_handling = 0
 
-    def set_start(self):
+    def sec_convert(self, time):
+        time_list = time.split(':')
+        seconds = int(time_list[0]) * 3600 + int(time_list[1]) * 60 + int(time_list[2])
+        return seconds
+
+    def set_time(self, name, time):
+        self.ids.task_name.text = name
+        self.ids.stopwatch.text = time
+        self.mstopwatch = self.sec_convert(time)
         self.ids.start_pause.text = 'Start'
         self.iscounting = False
-        self.mstopwatch = 0
-        self.ids.stopwatch.text = '00:00:00'
-        
+
+    def back(self):
+        self.current_task.current_time = self.ids.stopwatch.text
 
     def res(self, result):
-        today = date.today()
-        with open(f'libs/history/{today}.txt', 'a') as f:
+        with open(f'res/history/{self.current_task.group}.txt', 'a') as f:
             f.write(f'{self.ids.task_name.text}: {self.ids.stopwatch.text} | {result}!\n')
             f.close()
-        self.set_start()
+        self.back()
         self.res_2(result)
 
     def res_2(self, result):
         pass
-
 
 
 Builder.load_file('libs/kv/stopwatch.kv')

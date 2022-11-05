@@ -2,18 +2,17 @@ from libs import menu
 from libs import stopwatch
 from libs import history
 from libs import open_task
-import kivy
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager
 from time import time
-from kivy.lang import Builder
 from kivy.core.window import Window
+
 
 class WindowManager(ScreenManager):
 
-    def __init__ (self, **kwargs):
+    def __init__(self, **kwargs):
         super(WindowManager, self).__init__(**kwargs)
-        Window.bind(on_keyboard = self.back)
+        Window.bind(on_keyboard=self.back)
         self.menu = menu.Menu()
         self.stopwatch = stopwatch.Stopwatch()
         self.history = history.History()
@@ -21,6 +20,7 @@ class WindowManager(ScreenManager):
         self.share()
         self.load()
         self.set_view()
+        self.is_touch = False
 
     def load(self):
         screens = [self.menu, self.history, self.stopwatch, self.open_task]
@@ -37,12 +37,13 @@ class WindowManager(ScreenManager):
 
     def menu_start_task(self, task):
         self.stopwatch.current_task = task
-        self.stopwatch.ids.task_name.text = task.name.text
+        self.stopwatch.set_time(task.name.text, task.current_time)
         self.current = 'stopwatch'
 
     def stopwatch_res_2(self, result):
         if result == 'Success':
             self.menu.delete_task(self.stopwatch.current_task)
+        self.menu.update()
         self.current = 'menu'
 
     def history_show_2(self, tasks):
@@ -60,20 +61,41 @@ class WindowManager(ScreenManager):
     def back(self, window, key, *largs):
         if key == 27:
             if self.current == 'stopwatch':
+                self.stopwatch.back()
                 self.current = 'menu'
-                self.stopwatch.set_start()
             elif self.current == 'open_task':
                 self.open_task.tasks = []
                 self.open_task.ids.task_list.clear_widgets()
                 self.current = 'history'
             return True
-                
+
     def set_view(self):
-        self.menu.ids.other.icon = 'history'
+        self.menu.ids.other.icon = 'clipboard-outline'
         self.menu.ids.edit.icon = 'plus'
         self.history.ids.other.icon = 'text-box-plus'
         self.history.ids.edit.icon = 'delete-outline'
 
+
+    def on_touch_move(self, touch):
+        if touch.y > 540 and touch.y < 600:
+            if not self.is_touch:
+                if touch.x > 200 and touch.x < 600 and touch.x - touch.ox > 200:
+                    self.menu.change_group(-1)
+                    self.is_touch = True
+                elif touch.x > 200 and touch.x < 600 and touch.ox - touch.x > 200:
+                    self.menu.change_group(1)
+                    self.is_touch = True
+        else:
+            if touch.x - touch.ox > 200 and self.current == 'menu':
+                self.transition.direction = 'right'
+                self.current = 'history'
+                self.history.load()
+            elif touch.ox - touch.x > 200 and self.current == 'history':
+                self.transition.direction = 'left'
+                self.current = 'menu'
+
+    def on_touch_up(self, touch):
+        self.is_touch = False
 
 class TaskMaster(MDApp):
     def build(self):
@@ -88,6 +110,7 @@ class TaskMaster(MDApp):
     def on_pause(self):
         self.wm.stopwatch.time_in_handling = time()
         return True
+
 
 if __name__ == '__main__':
     TaskMaster().run()
