@@ -40,8 +40,8 @@ class History(MDScreen):
             task.size_hint_y = None
             task.name.text = filename[12:-4]
             task.path = filename
-            task.delete.bind(on_press=lambda i: self.delete_task(task))
-            task.bind(on_press=lambda j: self.show(filename))
+            task.delete.bind(on_release=lambda i: self.delete_task(task))
+            task.bind(on_release=lambda j: self.show(filename))
             self.ids.task_list.add_widget(task)
             self.tasks.append(task)
 

@@ -64,12 +64,12 @@ class Stopwatch(MDScreen):
     def back(self):
         self.current_task.current_time = self.ids.stopwatch.text
 
-    def res(self, result):
+    def res(self):
         with open(f'res/history/{self.current_task.group}.txt', 'a') as f:
-            f.write(f'{self.ids.task_name.text}: {self.ids.stopwatch.text} | {result}!\n')
+            f.write(f'{self.ids.task_name.text}: {self.ids.stopwatch.text}\n')
             f.close()
         self.back()
-        self.res_2(result)
+        self.res_2()
 
     def res_2(self, result):
         pass

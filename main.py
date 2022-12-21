@@ -40,9 +40,8 @@ class WindowManager(ScreenManager):
         self.stopwatch.set_time(task.name.text, task.current_time)
         self.current = 'stopwatch'
 
-    def stopwatch_res_2(self, result):
-        if result == 'Success':
-            self.menu.delete_task(self.stopwatch.current_task)
+    def stopwatch_res_2(self):
+        self.menu.delete_task(self.stopwatch.current_task)
         self.menu.update()
         self.current = 'menu'
 
@@ -70,7 +69,7 @@ class WindowManager(ScreenManager):
             return True
 
     def set_view(self):
-        self.menu.ids.other.icon = 'clipboard-outline'
+        self.menu.ids.other.icon = 'clipboard-plus-outline'
         self.menu.ids.edit.icon = 'plus'
         self.history.ids.other.icon = 'text-box-plus'
         self.history.ids.edit.icon = 'delete-outline'

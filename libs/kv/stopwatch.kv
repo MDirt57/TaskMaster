@@ -7,7 +7,7 @@
 			id: task_name
 			text: ''
 			theme_text_color: 'Custom'
-			text_color: (164/255, 1, 0, 0.8)
+			text_color: (1, 1, 1, 1)
 			font_size: root.width*.06
 			halign: 'center'
 			pos_hint: {'y': 0.3}
@@ -17,19 +17,7 @@
 			text: '00:00:00'
 			font_size: root.width*.128
 			pos_hint: {'y': 0.1}			
-			
-		MDIconButton:
-			id: fail
-			name: 'Fail'
-			icon: 'window-close'
-			icon_size: '54sp'
-			theme_icon_color: 'Custom'
-			icon_color: (1, 0, 0, 1)
-			size_hint: None, None
-			width: root.width/4
-			height: root.height/10
-			pos_hint: {'x': 0.1, 'y': 0.15}
-			on_press: root.res(self.name)
+
 		
 		MDIconButton:
 			id: success
@@ -41,8 +29,8 @@
 			size_hint: None, None
 			width: root.width/4
 			height: root.height/10
-			pos_hint: {'x': 0.65, 'y': 0.15}
-			on_press: root.res(self.name)
+			pos_hint: {'x': 0.375, 'y': 0.15}
+			on_release: root.res()
 			
 
 		MDRoundFlatButton:
@@ -51,4 +39,4 @@
 			font_size: root.width*.05
 			size_hint: .25, .1
 			pos_hint: {'x': 0.375, 'y': 0.015}
-			on_press: root.start_pause()
+			on_release: root.start_pause()

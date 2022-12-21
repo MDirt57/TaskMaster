@@ -15,10 +15,10 @@ class Menu(MDScreen):
         super(Menu, self).__init__(**kwargs)
         self.group_menu = GroupMenu()
         self.tasks = {}
-        self.current_name = None
-        self.names = []
+        self.current_group = None
+        self.groups = []
         self.add_btn = MDRectangleFlatButton(text='+', font_size=self.width*.48, md_bg_color=(0, 0, 0, 1), size_hint=(.2, .1))
-        self.add_btn.bind(on_press=self.add_task)
+        self.add_btn.bind(on_release=self.add_task)
         self.edit_marker = 0
         self.kv = Builder.load_file('libs/kv/main.kv')
         self.load()
@@ -27,15 +27,15 @@ class Menu(MDScreen):
         if self.edit_marker == 0:
             self.ids.edit.icon = 'window-close'
             self.ids.menu.add_widget(self.add_btn)
-            if self.tasks[self.current_name] != []:
-                for i in self.tasks[self.current_name]:
+            if self.tasks[self.current_group] != []:
+                for i in self.tasks[self.current_group]:
                     i.edit()
             self.edit_marker = 1
         else:
             self.ids.edit.icon = 'plus'
             self.ids.menu.remove_widget(self.add_btn)
-            if self.tasks[self.current_name] != []:
-                for i in self.tasks[self.current_name]:
+            if self.tasks[self.current_group] != []:
+                for i in self.tasks[self.current_group]:
                     i.close_edit()
                     if i.is_edit():
                         i.set_name_(i.input.text)
@@ -51,10 +51,10 @@ class Menu(MDScreen):
             task.set_name_(name)
             task.current_time = current_time
         task.size_hint_y = None
-        task.group = self.current_name
-        self.tasks[self.current_name].append(task)
-        task.delete.bind(on_press=lambda i: self.delete_task(task))
-        task.bind(on_press=lambda j: self.start_task(task))
+        task.group = self.current_group
+        self.tasks[self.current_group].append(task)
+        task.delete.bind(on_release=lambda i: self.delete_task(task))
+        task.bind(on_release=lambda j: self.start_task(task))
         self.ids.task_list.add_widget(task)
 
     def load_one(self, group):
@@ -68,11 +68,11 @@ class Menu(MDScreen):
         groups = glob.glob('res/*.txt')
         for group in groups:
             name = group[4:-4]
-            self.names.append(name)
-            self.current_name = name
+            self.groups.append(name)
+            self.current_group = name
             self.load_one(name)
         with open(f'../TaskMaster/cash.txt', 'r') as f:
-            self.current_name = f.read()
+            self.current_group = f.read()
         self.change_group(0)
 
     def add_task(self, instance):
@@ -80,15 +80,21 @@ class Menu(MDScreen):
         self.create_task()
         # self.ids.task_list.add_widget(self.add_btn)
 
-    def delete_task(self, i):
-        self.ids.task_list.remove_widget(i)
-        del self.tasks[self.current_name][self.tasks[self.current_name].index(i)]
+    def delete_task(self, task):
+        self.ids.task_list.remove_widget(task)
+        del self.tasks[self.current_group][self.tasks[self.current_group].index(task)]
         self.update()
+
+    def delete_group(self, group):
+        self.change_group(1)
+        del self.tasks[group]
+        self.groups.remove(group)
+
 
     def update(self):
         with open(f'../TaskMaster/cash.txt', 'w') as f:
-            f.write(self.current_name)
-        for name in self.names:
+            f.write(self.current_group)
+        for name in self.groups:
             self.update_one(name)
 
     def update_one(self, name):
@@ -99,15 +105,15 @@ class Menu(MDScreen):
     def start_task(self, name):
         pass
 
-    def change_group(self, vector):
-        self.update_one(self.current_name)
+    def change_group(self, vector): #vector = {-1, 1}
+        self.update_one(self.current_group)
         try:
-            self.current_name = self.names[self.names.index(self.current_name) + vector]
+            self.current_group = self.groups[self.groups.index(self.current_group) + vector]
         except:
-            self.current_name = self.names[0]
-        self.ids.group.text = self.current_name
+            self.current_group = self.groups[0]
+        self.ids.group.text = self.current_group
         self.ids.task_list.clear_widgets()
-        self.load_one(self.current_name)
+        self.load_one(self.current_group)
 
     def add_group(self):
         self.ids.other.add_widget(self.group_menu)

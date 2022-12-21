@@ -17,7 +17,7 @@ class TaskButton(FloatLayout, MDRectangleFlatButton):
                                    pos_hint={'x': .9, 'y': 0})
         self.change_name = MDIconButton(icon='square-edit-outline', size_hint=(.1, 1), \
                                         pos_hint={'x': .8, 'y': 0})
-        self.change_name.bind(on_press=self.change_name_)
+        self.change_name.bind(on_release=self.change_name_)
         self.name = Label(font_size=self.width*.75, pos_hint={'x': 0, 'y': 0})
         self.input = MDTextFieldRect(multiline=False, font_size=self.width*.5, size_hint=(.6, .6), \
                                      background_color=(1, 1, 1, 1),
