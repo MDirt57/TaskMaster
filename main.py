@@ -71,7 +71,7 @@ class WindowManager(ScreenManager):
     def set_view(self):
         self.menu.ids.other.icon = 'clipboard-plus-outline'
         self.menu.ids.edit.icon = 'plus'
-        self.history.ids.other.icon = 'text-box-plus'
+        self.history.ids.other.icon = 'text-box'
         self.history.ids.edit.icon = 'delete-outline'
 
 

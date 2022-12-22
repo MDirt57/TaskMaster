@@ -1,7 +1,0 @@
-group menu
--change icon
--swap group-label to group-taskbutton
--make group creating
--make group deleting
--addaptive changes to history screen
-

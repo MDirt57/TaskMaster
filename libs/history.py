@@ -1,4 +1,5 @@
 from kivymd.uix.screen import MDScreen
+from kivy.uix.label import Label
 import os
 import glob
 
@@ -13,6 +14,7 @@ class History(MDScreen):
 
     def __init__(self, **kwargs):
         super(History, self).__init__(**kwargs)
+        self.ids.group.add_widget(Label(text = 'History', font_size = self.width*.5))
         self.directory = 'res/history'
         self.tasks = []
         self.edit_marker = 0

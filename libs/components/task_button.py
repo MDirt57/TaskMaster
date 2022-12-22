@@ -13,12 +13,13 @@ class TaskButton(FloatLayout, MDRectangleFlatButton):
         self.current_time = '00:00:00'
         self.rename = True
         self.height = 100
+        self.default_width = self.width*.75
         self.delete = MDIconButton(icon='delete', size_hint=(.1, 1), \
                                    pos_hint={'x': .9, 'y': 0})
         self.change_name = MDIconButton(icon='square-edit-outline', size_hint=(.1, 1), \
                                         pos_hint={'x': .8, 'y': 0})
         self.change_name.bind(on_release=self.change_name_)
-        self.name = Label(font_size=self.width*.75, pos_hint={'x': 0, 'y': 0})
+        self.name = Label(font_size=self.default_width, pos_hint={'x': 0, 'y': 0})
         self.input = MDTextFieldRect(multiline=False, font_size=self.width*.5, size_hint=(.6, .6), \
                                      background_color=(1, 1, 1, 1),
                                      foreground_color=(33 / 255, 150 / 255, 243 / 255, 1), \
@@ -56,7 +57,7 @@ class TaskButton(FloatLayout, MDRectangleFlatButton):
     def close_edit(self):
         self.remove_widget(self.delete)
         self.remove_widget(self.change_name)
-        self.name.font_size = self.width*.06
+        self.name.font_size = self.default_width
         self.name.pos_hint = {'x': 0, 'y': 0}
 
     def is_edit(self):

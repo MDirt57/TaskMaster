@@ -1,3 +1,0 @@
-First task: 00:00:00 | Fail!
-First task: 00:00:00 | Success!
-: 00:00:03 | Fail!
