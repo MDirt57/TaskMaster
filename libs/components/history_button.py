@@ -16,7 +16,7 @@ class HistoryButton(FloatLayout, MDRectangleFlatButton):
         self.path = None
 
     def edit(self):
-        self.name.font_size = 24
+        self.name.font_size = 36
         self.name.pos_hint = {'x': -.3, 'y': 0}
         self.add_widget(self.delete)
 

@@ -18,7 +18,7 @@ class TaskButton(FloatLayout, MDRectangleFlatButton):
                                         pos_hint={'x': .8, 'y': 0})
         self.change_name.bind(on_release=self.change_name_)
         self.name = Label(font_size=48, pos_hint={'x': 0, 'y': 0})
-        self.input = MDTextFieldRect(multiline=False, font_size=24, size_hint=(.6, .6), \
+        self.input = MDTextFieldRect(multiline=False, font_size=36, size_hint=(.6, .6), \
                                      background_color=(1, 1, 1, 1),
                                      foreground_color=(33 / 255, 150 / 255, 243 / 255, 1), \
                                      pos_hint={'top': .8, 'x': .2}, halign="center")
@@ -39,7 +39,7 @@ class TaskButton(FloatLayout, MDRectangleFlatButton):
         self.rename = False
 
     def edit(self):
-        self.name.font_size = 24
+        self.name.font_size = 36
         self.name.pos_hint = {'x': -.1, 'y': 0}
         self.add_widget(self.delete)
         self.add_widget(self.change_name)
