@@ -10,6 +10,7 @@ sys.path.insert(0, 'libs/components/')
 sys.path.append('../TaskMaster/res')
 from task_button import TaskButton
 
+
 class Menu(MDScreen):
 
     def __init__(self, **kwargs):
@@ -19,7 +20,8 @@ class Menu(MDScreen):
         self.current_group_button = None
         self.groups = []
         self.groups_dict = {}
-        self.add_btn = MDRectangleFlatButton(text='+', font_size=self.width*.48, md_bg_color=(0, 0, 0, 1), size_hint=(.2, .1))
+        self.add_btn = MDRectangleFlatButton(text='+', font_size=self.width * .48, md_bg_color=(0, 0, 0, 1),
+                                             size_hint=(.2, .1))
         self.add_btn.bind(on_release=self.add_task)
         self.edit_marker = 0
         self.kv = Builder.load_file('libs/kv/main.kv')
@@ -65,7 +67,20 @@ class Menu(MDScreen):
         for task in self.tasks[new_name]:
             task.group = new_name
 
-    def create_task(self, name = '', current_time = '00:00:00'):
+    def add_task(self, instance):
+        self.create_task()
+
+    def create_group(self, name):
+        group_button = TaskButton()
+        group_button.delete.bind(on_release=lambda i: self.delete_group(self.current_group))
+        group_button.set_name_(name)
+        group_button.size_hint_y = 1
+        self.groups_dict[name] = group_button
+        self.groups.append(name)
+        self.current_group = name
+        return group_button
+
+    def create_task(self, name='', current_time='00:00:00'):
         task = TaskButton()
         if name != '':
             task.set_name_(name)
@@ -88,22 +103,11 @@ class Menu(MDScreen):
         groups = glob.glob('res/*.txt')
         for group in groups:
             name = group[4:-4]
-            group_button = TaskButton()
-            group_button.delete.bind(on_release=lambda i: self.delete_group(self.current_group))
-            group_button.set_name_(name)
-            group_button.size_hint_y = 1
-            self.groups_dict[name] = group_button
-            self.groups.append(name)
-            self.current_group = name
+            group_button = self.create_group(name)
             self.load_one(name)
-        with open(f'../TaskMaster/cash.txt', 'r') as f:
+        with open(f'res/cash/cash.txt', 'r') as f:
             self.current_group = f.read()
         self.change_group(0)
-
-    def add_task(self, instance):
-        # self.ids.task_list.remove_widget(self.add_btn)
-        self.create_task()
-        # self.ids.task_list.add_widget(self.add_btn)
 
     def delete_task(self, task):
         self.ids.task_list.remove_widget(task)
@@ -115,12 +119,12 @@ class Menu(MDScreen):
         del self.tasks[group]
         self.groups.remove(group)
 
-
     def update(self):
-        with open(f'../TaskMaster/cash.txt', 'w') as f:
+        with open(f'res/cash/cash.txt', 'w') as f:
             f.write(self.current_group)
         files = os.listdir(f'res/')
         files.remove('history')
+        files.remove('cash')
         for f in files:
             os.remove(f'res/{f}')
         for name in self.groups:
@@ -134,7 +138,7 @@ class Menu(MDScreen):
     def start_task(self, name):
         pass
 
-    def change_group(self, vector): #vector = {-1, 1}
+    def change_group(self, vector):  # vector = {-1, 1}
         self.edit_marker = 0
         self.ids.edit.icon = 'plus'
         self.ids.menu.remove_widget(self.add_btn)
@@ -151,13 +155,7 @@ class Menu(MDScreen):
 
     def add_group(self):
         name = ''
-        group_button = TaskButton()
-        group_button.delete.bind(on_release=lambda i: self.delete_group(self.current_group))
-        group_button.set_name_(name)
-        group_button.size_hint_y = 1
-        self.groups_dict[name] = group_button
-        self.groups.append(name)
-        self.current_group = name
+        group_button = self.create_group(name)
         self.tasks[name] = []
         self.current_group_button = group_button
         self.ids.group.clear_widgets()
@@ -165,13 +163,4 @@ class Menu(MDScreen):
         self.ids.task_list.clear_widgets()
 
 
-
-
-kv = Builder.load_file('libs/kv/main.kv')
-
-# class TaskMaster(MDApp):
-#     def build(self):
-#         return Menu()
-
-# if __name__ == '__main__':
-#     TaskMaster().run()
+Builder.load_file('libs/kv/main.kv')

@@ -76,7 +76,7 @@ class WindowManager(ScreenManager):
 
 
     def on_touch_move(self, touch):
-        if touch.y > 540 and touch.y < 600:
+        if touch.y > self.menu.current_group_button.y and touch.y < self.menu.height:
             if not self.is_touch:
                 if touch.x > 200 and touch.x < 600 and touch.x - touch.ox > 200:
                     self.menu.change_group(-1)

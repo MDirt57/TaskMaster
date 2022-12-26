@@ -1,7 +1,6 @@
 from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
 from kivy.clock import Clock
-from datetime import date
 from time import time
 
 import sys
@@ -76,10 +75,3 @@ class Stopwatch(MDScreen):
 
 
 Builder.load_file('libs/kv/stopwatch.kv')
-
-##class MyApp(App):
-##    def build(self):
-##        return Stopwatch()
-##
-##if __name__ == '__main__':
-##    MyApp().run()

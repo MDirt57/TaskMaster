@@ -19,11 +19,4 @@ class OpenTask(MDScreen):
             self.ids.task_list.add_widget(t)
 
 
-kv = Builder.load_file('libs/kv/opentask.kv')
-
-##class MyApp(App):
-##    def build(self):
-##        return OpenTask()
-##
-##if __name__ == '__main__':
-##    MyApp().run()
+Builder.load_file('libs/kv/opentask.kv')

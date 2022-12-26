@@ -7,6 +7,7 @@ import sys
 
 sys.path.insert(0, 'libs/components/')
 from history_button import HistoryButton
+
 sys.path.append('TaskMaster/res')
 
 
@@ -14,7 +15,7 @@ class History(MDScreen):
 
     def __init__(self, **kwargs):
         super(History, self).__init__(**kwargs)
-        self.ids.group.add_widget(Label(text = 'History', font_size = self.width*.5))
+        self.ids.group.add_widget(Label(text='History', font_size=48))
         self.directory = 'res/history'
         self.tasks = []
         self.edit_marker = 0
@@ -70,12 +71,3 @@ class History(MDScreen):
 
     def add_group(self):
         pass
-
-# kv = Builder.load_file('libs/kv/main.kv')
-
-##class MyApp(App):
-##    def build(self):
-##        return History()
-##
-##if __name__ == '__main__':
-##    MyApp().run()
