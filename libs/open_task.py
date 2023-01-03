@@ -12,10 +12,7 @@ class OpenTask(MDScreen):
     def show(self):
         for task in self.tasks:
             t = Label(text=task, font_size=48, size_hint_y=None, height=50)
-            if 'Success' in task:
-                t.color = (0, 1, 0, 1)
-            else:
-                t.color = (1, 0, 0, 1)
+            t.color = (0, 1, 0, 1)
             self.ids.task_list.add_widget(t)
 
 
