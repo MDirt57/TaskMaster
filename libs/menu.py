@@ -1,10 +1,9 @@
-import os
+import os, sys, glob
 
 from kivymd.uix.button import MDRectangleFlatButton
 from kivy.lang import Builder
 from kivymd.uix.screen import MDScreen
 
-import sys, glob
 
 sys.path.insert(0, 'libs/components/')
 sys.path.append('../TaskMaster/res')
