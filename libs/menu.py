@@ -121,6 +121,8 @@ class Menu(MDScreen):
 
     def update(self):
         with open(f'res/cash/cash.txt', 'w') as f:
+            if self.current_group == '':
+                self.current_group = 'Main'
             f.write(self.current_group)
         files = os.listdir(f'res/')
         files.remove('history')
