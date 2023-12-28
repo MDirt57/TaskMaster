@@ -1,3 +1,8 @@
 # TaskMaster
-_(this is python project for practicing modul 'kivy')_
-<br />TaskMaster is task manager with stopwatch and history of your succesful or fail tasks.
+
+### TaskMaster - це список справ із секундоміром.
+
+
+Програма написана на kivy та задизайнена під платформу android.
+Основна мета даного застосунку полягає у вимірюванні часу для задач.
+Також реалізовано додавання нових груп завдань та історія виконаних.
