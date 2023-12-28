@@ -2,6 +2,9 @@
 
 ### TaskMaster - це список справ із секундоміром.
 
+[![Demo](https://github.com/MDirt57/TaskMaster/assets/90252806/86dc2eef-397e-4a62-818e-287fcb038723)](https://github.com/MDirt57/TaskMaster/assets/90252806/3b3c0135-e561-4247-863f-45c9da2cd156)
+
+___
 
 Програма написана на kivy та задизайнена під платформу android.
 Основна мета даного застосунку полягає у вимірюванні часу для задач.
